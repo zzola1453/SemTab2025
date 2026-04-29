@@ -1,0 +1,15 @@
+col0,col1,col2,col3,col4,col5,col6,col7,col8,col9,col10,col11,col12,col13,col14
+Standard ASCII,367,"ASCII, ISO 646-US IR 6",#,@,[,\,],^,_,`,{,,},~
+United Kingdom,1101,"DEC, ISO",£,@,[,\,],^,_,`,{,,},~
+Denmark/Norway  (Alternate),1107,"DEC, ISO",#,@,Æ,Ø,Å,^,underscore,`,AE ligature,ø,å,~
+Denmark/Norway,1105,DEC,#,Ä,æsc,Ø,Å,Ü,ASCII 95,ä,æ,ø,å,ü
+Dutch,1102,DEC,£,¾,ĳ,½,,^,low line,`,¨,ƒ,¼,´
+Finnish,1103,DEC,#,@,Ä,Ö,Å,ü,_,é,ä,ö,å,ü
+French,1104,"DEC, ISO",£,A-grave,°,ç,§,^,_,`,é,ù,è,¨
+French Canadian,1020,DEC,#,à,â,ç,E-circumflex,I with circumflex,_,ô,é,ù,è,û
+German,"1011,  20106","ISO 646-DE IR 21,  DIN 66003",#,§,Ä,Ö,Ü,^,_,`,ä,ö,ü,ß
+Italian,1012,"ISO 646-IT IR 15,  UNI 0204-70",£,§,°,ç,é,^,_,ù,A-grave,ò,è,I
+Portuguese,,DEC,#,@,A with tilde,Ç,Õ,^,underline,`,A with tilde,ç,õ,~
+Spanish,1023,"DEC, ISO",£,§,¡,Ñ,¿,^,ASCII 95,`,˚   (°),ñ,C with cedilla,~
+Swedish,1106,"DEC, ISO",#,E with acute,Ä,Ö,"Å, å",ü,_,é,ä,ö,å,ü
+Swiss,1021,DEC,ù,A with grave,é,ç,E-circumflex,î,è,ô,ä,ö,ü,û

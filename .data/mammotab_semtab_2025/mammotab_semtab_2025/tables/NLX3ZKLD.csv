@@ -1,0 +1,41 @@
+col0,col1,col2,col3,col4,col5
+Crocodilia,Alligatoridae,Alligator sinensis,Chinese alligator,扬子鳄,02
+Squamata,Varanidae,Varanus bengalensis,Bengal monitor lizard,孟加拉巨蜥,06
+Squamata,Varanidae,Varanus salvator,Water monitor,巨蜥,06
+Squamata,Shinisauridae,Shinisaurus crocodilurus,Chinese crocodile lizard,中国鳄蜥,04
+Squamata,Gekkonidae,Gekko gecko,Gekko gecko,大壁虎,07
+Squamata,Pythonidae,Python molurus,Indian python,蟒,05
+Squamata,Viperidae,Vipera ursinii,Meadow viper,草原蝰,04
+Squamata,Viperidae,Protobothrops mangshanensis,Mang Mountain pit viper,莽山烙铁头蛇,03
+Squamata,Colubridae,Hebius metusium,Wa Shan keelback,瓦屋山腹链蛇,03
+Squamata,Colubridae,Calamaria yunnanensis,Yunnan reed snake,云南两头蛇,03
+Squamata,Colubridae,Euprepiophis perlacea,Sichuan rat snake,横斑丽蛇,03
+Squamata,Colubridae,Elaphe schrenkii,Manchurian black water snake,東北黑水蛇,03
+Squamata,Typhlopidae,Typhlops lazelli,Lazell's blind snake,香港盲蛇,02
+Testudines,Trionychidae,Palea steindachneri,Wattle-necked softshell turtle,山瑞鳖,03
+Testudines,Trionychidae,Pelochelys cantorii,Cantor's giant softshell turtle,鼋,03
+Testudines,Trionychidae,Rafetus swinhoei,Yangtze giant softshell turtle,斑鳖,02
+Testudines,Cheloniidae,Caretta caretta,Loggerhead sea turtle,蠵龟,03
+Testudines,Cheloniidae,Chelonia mydas,Green sea turtle,绿海龟,03
+Testudines,Cheloniidae,Eretmochelys imbricata,Hawksbill sea turtle,玳瑁,02
+Testudines,Cheloniidae,Lepidochelys olivacea,Olive ridley sea turtle,太平洋丽龟,04
+Testudines,Dermochelyidae,Dermochelys coriacea,Leatherback sea turtle,棱皮龟,02
+Testudines,Testudinidae,Testudo horsfieldi,Russian tortoise,四爪陆龟,04
+Testudines,Testudinidae,Manouria impressa,Impressed tortoise,凹甲陆龟,04
+Testudines,Platysternidae,Platysternon megacephalum,Big-headed turtle,大头龟,03
+Testudines,Geoemydidae,Cuora aurocapitata,Yellow-headed box turtle,金头闭壳龟,03
+Testudines,Geoemydidae,Cuora flavomarginata,Chinese box turtle,食蛇龟,03
+Testudines,Geoemydidae,Geoemyda spengleri,Black-breasted leaf turtle,地龟,03
+Testudines,Geoemydidae,Cuora trifasciata,Golden coin turtle,三线闭壳龟,02
+Testudines,Geoemydidae,Cuora yunnanensis,Yunnan box turtle,云南闭壳龟,02
+Testudines,Geoemydidae,Cuora galbinifrons,Indochinese box turtle,黄额闭壳龟,02
+Testudines,Geoemydidae,Cuora mccordi,McCord's box turtle,百色闭壳龟,02
+Testudines,Geoemydidae,Cuora mouhotii,Keeled box turtle,锯缘摄龟,03
+Testudines,Geoemydidae,Cuora pani,Pan's box turtle,潘氏闭壳龟,02
+Testudines,Geoemydidae,Cuora zhoui,Zhou's box turtle,周氏闭壳龟,02
+Testudines,Geoemydidae,Mauremys mutica,Yellow pond turtle,黄喉拟水龟,03
+Testudines,Geoemydidae,Mauremys nigricans,Red-necked pond turtle,黑颈乌龟,03
+Testudines,Geoemydidae,Mauremys reevesii,Chinese pond turtle,草龟,03
+Testudines,Geoemydidae,Ocadia sinensis,Chinese stripe-necked turtle,花龟,03
+Testudines,Geoemydidae,Sacalia bealei,Beale's eyed turtle,眼斑水龟,02
+Testudines,Geoemydidae,Sacalia quadriocellata,Four-eyed turtle,四眼斑水龟,03

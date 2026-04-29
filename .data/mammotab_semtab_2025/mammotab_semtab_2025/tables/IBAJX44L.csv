@@ -1,0 +1,56 @@
+col0,col1,col2,col3,col4
+Argentine Republic,,Buenos Aires,http://data.buenosaires.gob.ar/,CKAN
+br,Sao Paulo,Sao Paulo,http://dados.prefeitura.sp.gov.br/,ckan.org
+China,Canton,Sham Chun,https://opendata.sz.gov.cn/,Custom
+TAN,Capital,Copenhagen,https://data.kk.dk/,CKAN
+Italy,Lazio,The Eternal City,https://dati.comune.roma.it/,Custom
+Repubblica Italiana,Liguria,,"https://www.regione.liguria.it/homepage-opendata.html
+https://dati.comune.genova.it/",
+Italy,Lombardy,,"https://dati.lombardia.it/
+https://dati.comune.milano.it/",
+Republic of Italy,Emilia-Romagna,,"https://dati.emilia-romagna.it
+https://opendata.comune.bologna.it//",
+Republic of Italy,Sicily,Palermo,https://opendata.comune.palermo.it/,
+Italian Republic,Tuscany,,"https://dati.toscana.it/
+https://opendata.comune.fi.it/
+
+http://opendata.lucca.it/",
+Repubblica Italiana,Veneto,,https://dati.veneto.it/,
+Italy,Puglia,Bari,https://opendata.comune.bari.it/,
+Germany,Berlin,Berlin,https://daten.berlin.de/,CKAN
+Germany,Westphalia,Gelsenkirchen,https://opendata.gelsenkirchen.de/,
+Japan,,Tokyo,https://portal.data.metro.tokyo.lg.jp/,Custom
+Japan,Osaka Prefecture,Osaka,https://data.city.osaka.lg.jp/,ckan.org
+"Korea, South",Seoul Capital Area,Seoul,https://data.seoul.go.kr/,Custom
+"Korea, South",Yeongnam,Busan,http://opendata.busan.go.kr/,
+Mexico,Mexico,Mexico City,https://datos.cdmx.gob.mx/,Comprehensive Knowledge Archive Network
+Netherlands,North Holland,Amsterdam,https://data.amsterdam.nl/,CKAN
+South Africa,Western Cape Province,City of Cape Town,https://odp-cctegis.opendata.arcgis.com/,ArcGIS Hub
+South Africa,Kwa-Zulu Natal,Ethekwini Municipality,https://gis-ethekwini.opendata.arcgis.com/,ArcGIS Hub
+South Africa,Gauteng Province,Gauteng,https://gisportal.gauteng.gov.za/portal/home/,ArcGIS Hub
+Spain,Catalonia,Tarragona,http://opendata.tarragona.cat/,
+Spain,Catalonia,Terrassa,http://opendata.terrassa.cat/,
+Turkey,Istanbul,Istanbul,https://data.ibb.gov.tr/,
+United Kingdom,Bristol,Bristol,https://opendata.bristol.gov.uk/,
+United Kingdom,Somerset,Bath,https://data.bathhacked.org/,
+United States,,Washington DC,https://opendata.dc.gov/,ArcGIS Hub
+United States,Arizona,Phoenix,https://www.phoenixopendata.com/,"CKAN
+OpenGov"
+United States,Arizona,Glendale,https://opendata.glendaleaz.com/,ArcGIS Hub
+United States,California,Los Angeles,https://data.lacity.org/,Socrata
+United States,California,San Diego,https://data.sandiego.gov/,Custom
+United States,California,San Jose,https://data.sanjoseca.gov/,"CKAN
+OpenGov"
+United States,Hawaii,Honolulu,https://data.honolulu.gov/,Socrata
+United States,Idaho,Boise,https://opendata.cityofboise.org/,ArcGIS Hub
+United States,Illinois,Chicago,https://data.cityofchicago.org/,Socrata
+United States,Michigan,Ann Arbor,https://www.a2gov.org/services/data/Pages/default.aspx,Custom
+United States,New Jersey,Newark,https://data.ci.newark.nj.us,"CKAN
+OpenGov"
+United States,New York,New York City,https://opendata.cityofnewyork.us/,Socrata
+United States,Pennsylvania,Philadelphia,https://www.opendataphilly.org/,Comprehensive Knowledge Archive Network
+United States,Tennessee,Chattanooga,https://data.chattlibrary.org/,Socrata
+United States,Texas,Dallas,https://www.dallasopendata.com/,Socrata
+United States,Texas,Houston,http://data.houstontx.gov/,
+United States,Texas,San Antonio,https://data.sanantonio.gov/,Comprehensive Knowledge Archive Network
+Multiple,Multiple,http://www.civicdata.io/,ckan.org,None

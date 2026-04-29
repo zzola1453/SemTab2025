@@ -1,0 +1,33 @@
+col0,col1
+Track gauge,"*B  Broad gauge 
+*M  Metre gauge 
+*N  Narrow gauge"
+Wagon type,"*B    Bogie wagon
+*BV    Brake van
+*V    Brake/parcel van
+*O    Open wagon
+*C    Covered wagon
+*F    Flat car
+*FK    Flat car for container transport
+*FU    Well wagon
+*LA    Low flat car with standard buffer height
+*LB    Low flat car with low buffer height
+*LAB    Low flat car, one end with low buffer, the other with high buffer
+*R    Rail-carrying wagon
+*T    Tanker
+*U    Well wagon
+*W    Well wagon
+*K    Open wagon: ballast/material/refuse transport
+*C    Centre discharge
+*S    Side discharge
+*R    Rapid (forced) discharge, bottom discharge
+*X    Both centre and side discharge
+*X    High sided
+*Y    Low (medium) side walls
+*L    Low sided
+*H    Heavy load"
+Coupling,"*C  Center buffer
+*R  Screw
+*T  Transition
+*N  Air-braked
+*M  Military"

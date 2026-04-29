@@ -1,0 +1,5 @@
+col0,col1,col2
+"1, −",Cardioid,p^2=\frac{9}{8}(r^2-a^2)
+"2, −",Nephroid,p^2=\frac{4}{3}(r^2-a^2)
+"−3, −",Deltoid,p^2=-\frac{1}{8}(r^2-a^2)
+"−4, −",Astroid,p^2=-\frac{1}{3}(r^2-a^2)

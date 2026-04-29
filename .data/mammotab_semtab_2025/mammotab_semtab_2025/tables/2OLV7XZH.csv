@@ -1,0 +1,46 @@
+col0,col1,col2,col3,col4
+Park Corner,1st Queens,Park Corner-Oyster Bed,Kensington-Malpeque,Kensington-Malpeque
+"Emerald Junction, Prince Edward Island",1st Queens,Crapaud-Hazel Grove,Park Corner-Oyster Bed,Park Corner-Oyster Bed
+Hazel Grove,1st Queens,Crapaud-Hazel Grove,Rustico-Emerald,Park Corner-Oyster Bed
+Crapaud,1st Queens,Crapaud-Hazel Grove,Kellys Cross-Cumberland,Borden-Kinkora
+Kellys Cross,1st Queens,Crapaud-Hazel Grove,Crapaud-Hazel Grove,Borden-Kinkora
+New Haven,2nd Queens,Crapaud-Hazel Grove,Kellys Cross-Cumberland,New Haven-Rocky Point
+Cumberland,2nd Queens,North River-Rice Point,Crapaud-Hazel Grove,New Haven-Rocky Point
+Rice Point,2nd Queens,North River-Rice Point,Crapaud-Hazel Grove,New Haven-Rocky Point
+Rocky Point,2nd Queens,North River-Rice Point,Crapaud-Hazel Grove,New Haven-Rocky Point
+North River,2nd Queens,North River-Rice Point,Cornwall-Meadowbank,Cornwall-Meadowbank
+Cornwall,2nd Queens,North River-Rice Point,Cornwall-Meadowbank,Cornwall-Meadowbank
+Meadowbank,2nd Queens,North River-Rice Point,Cornwall-Meadowbank,Cornwall-Meadowbank
+Rustico,2nd Queens,Park Corner-Oyster Bed,Park Corner-Oyster Bed,Rustico-Emerald
+Hunter River,2nd Queens,Park Corner-Oyster Bed,Park Corner-Oyster Bed,Brackley-Hunter River
+Springvale,2nd Queens,Park Corner-Oyster Bed,West Royalty-Springvale,Brackley-Hunter River
+Oyster Bed,2nd Queens,Park Corner-Oyster Bed,York-Oyster Bed,Brackley-Hunter River
+Brackley,3rd Queens,Stanhope-East Royalty,York-Oyster Bed,Brackley-Hunter River
+York,3rd Queens,Stanhope-East Royalty,York-Oyster Bed,Stanhope-Marshfield
+Stanhope,3rd Queens,Stanhope-East Royalty,York-Oyster Bed,Stanhope-Marshfield
+Marshfield,3rd Queens,Stanhope-East Royalty,Tracadie-Hillsborough Park,Stanhope-Marshfield
+Tacadie,3rd Queens,Tracadie-Fort Augustus,Tracadie-Hillsborough Park,Stanhope-Marshfield
+Fort Augustus,3rd Queens,Tracadie-Fort Augustus,Morell-Mermaid,Morell-Donagh
+Donagh,3rd Queens,Tracadie-Fort Augustus,Morell-Mermaid,Morell-Donagh
+Mermaid,3rd Queens,Tracadie-Fort Augustus,Morell-Mermaid,Mermaid-Stratford
+Stratford (east part),3rd Queens,Glen Stewart-Bellevue Cove,Vernon River-Stratford,Mermaid-Stratford
+"Glen Stewart, Stratford",3rd Queens,Glen Stewart-Bellevue Cove,Stratford-Kinlock,Stratford-Keppoch
+"Kinlock, Stratford",3rd Queens,Glen Stewart-Bellevue Cove,Stratford-Kinlock,Stratford-Keppoch
+"Keppoch, Stratford",3rd Queens,Glen Stewart-Bellevue Cove,Stratford-Kinlock,Stratford-Keppoch
+Winsloe,3rd Queens,Winsloe-West Royalty,West Royalty-Springvale,Charlottetown-Winsloe
+Bellevue Cove,4th Queens,Glen Stewart-Bellevue Cove,Stratford-Kinlock,Mermaid-Stratford
+Belfast,4th Queens,Belfast-Pownal Bay,Belfast-Murray River,Belfast-Murray River
+Vernon River,4th Queens,Belfast-Pownal Bay,Vernon River-Stratford,Belfast-Murray River
+Pownal,4th Queens,Belfast-Pownal Bay,Vernon River-Stratford,Georgetown-Pownal
+"East Royalty, Charlottetown",5th Queens,Stanhope-East Royalty,York-Oyster Bed,Charlottetown-Hillsborough Park
+"Hillsborough Park, Charlottetown",5th Queens,Sherwood-Hillsborough,Tracadie-Hillsborough Park,Charlottetown-Hillsborough Park
+"Sherwood, Charlottetown",5th Queens,Sherwood-Hillsborough,Charlottetown-Sherwood,Charlottetown-Belvedere
+"Belvedere, Charlottetown",5th Queens,Parkdale-Belvedere,Charlottetown-Parkdale,Charlottetown-Belvedere
+"Parkdale, Charlottetown",5th Queens,Parkdale-Belvedere,Charlottetown-Parkdale,Charlottetown-Belvedere
+"Kings Square, Charlottetown",5th Queens,Charlottetown-Kings Square,Charlottetown-Victoria Park,Charlottetown-Victoria Park
+"Victoria Park, Charlottetown",6th Queens,Charlottetown-Rochford Square,Charlottetown-Victoria Park,Charlottetown-Victoria Park
+"Rochford Square, Charlottetown",6th Queens,Charlottetown-Rochford Square,Charlottetown-Victoria Park,Charlottetown-Victoria Park
+"Brighton, Charlottetown",6th Queens,Charlottetown-Rochford Square,Charlottetown-Brighton,Charlottetown-Brighton
+"Spring Park, Charlottetown",6th Queens,Charlottetown-Spring Park,Charlottetown-Lewis Point,Charlottetown-Brighton
+"Lewis Point, Charlottetown",6th Queens,Winsloe-West Royalty,Charlottetown-Lewis Point,Charlottetown-West Royalty
+"West Royalty, Charlottetown",6th Queens,Winsloe-West Royalty,West Royalty-Springvale,Charlottetown-West Royalty

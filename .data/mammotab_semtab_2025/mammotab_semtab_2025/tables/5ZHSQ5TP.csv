@@ -1,0 +1,48 @@
+col0,col1,col2,col3,col4
+Arabic,:ar:قالب:استشهاد بكتاب,Template:استشهاد بكتاب,Template:cite book/Arabic,cite_book_ar
+Danish,,,Template:cite book/Danish,cite_book_da
+Dutch,:nl:Sjabloon:Citeer boek,Template:Citeer boek,Template:cite book/Dutch,cite_book_nl
+Finnish,:fi:Malline:Kirjaviite,Template:Kirjaviite,Template:cite book/Finnish,cite_book_fi
+French,:fr:Modèle:Ouvrage,Template:Ouvrage,Template:cite book/French,cite_book_fr
+German,:de:Vorlage:Literatur,Template:Literatur,Template:cite book/German,cite_book_de
+Norwegian,:no:Mal:Kilde bok,Template:Kilde bok,Template:cite book/Norwegian,cite_book_no
+Polish,:pl:Szablon:Cytuj książkę,Template:Cytuj książkę,Template:cite book/Polish,cite_book_pl
+Portuguese,:pt:Predefinição:Citar livro,Template:Citar livro,Template:cite book/Portuguese,cite_book_pt
+Swedish,:sv:Mall:Bokref,Template:Bokref,Template:cite book/Swedish,cite_book_sv
+Turkish,:tr:Şablon:Kitap kaynağı,Template:Kitap kaynağı,Template:cite book/Turkish,cite_book_tr
+journal templates,journal templates,journal templates,journal templates,journal templates
+language,native template,redirect,cs12 translator,function
+Arabic,:ar:قالب:استشهاد بدورية محكمة,Template:استشهاد بدورية محكمة,Template:cite journal/Arabic,cite_journal_ar
+Danish,:da:Skabelon:Cite journal,—,Template:cite journal/Danish,cite_journal_da
+Dutch,:nl:Sjabloon:Citeer journal,Template:Citeer journal,Template:cite journal/Dutch,cite_journal_nl
+Finnish,:fi:Malline:Lehtiviite,Template:Lehtiviite,Template:cite journal/Finnish,cite_journal_fi
+French,:fr:Modèle:Article,—,Template:cite journal/French,cite_journal_fr
+German,:de:Vorlage:Cite journal,de.wiki uses old wikitext version of en.wiki,de.wiki uses old wikitext version of en.wiki,de.wiki uses old wikitext version of en.wiki
+Italian,:it:Template:Cita pubblicazione,Template:Cita pubblicazione,Template:cite journal/Italian,cite_journal_it
+Norwegian,,,Template:cite journal/Norwegian,cite_journal_no
+Polish,:pl:Szablon:Cytuj pismo,Template:Cytuj pismo,Template:cite journal/Polish,cite_journal_pl
+Portuguese,:pt:Predefinição:Citar periódico,Template:Citar periódico,Template:cite journal/Portuguese,cite_journal_pt
+Spanish,:es:Plantilla:Cita publicación,Template:Cita publicación,Template:cite journal/Spanish,cite_journal_es
+Swedish,:sv:Mall:Tidskriftsref,Template:Tidskriftsref,Template:cite journal/Swedish,cite_journal_sv
+Turkish,:tr:Şablon:Akademik dergi kaynağı,Template:Akademik dergi kaynağı,Template:cite journal/Turkish,cite_journal_tr
+news templates,news templates,news templates,news templates,news templates
+language,native template,redirect,cs12 translator,function
+Arabic,:ar:قالب:استشهاد بخبر,Template:استشهاد بخبر,Template:cite news/Arabic,cite_news_ar
+Catalan,:ca:Plantilla:Ref-publicació,Template:Ref-publicació,Template:cite news/Catalan,cite_news_ca
+Portuguese,:pt:Predefinição:Citar jornal,Template:Citar jornal,Template:cite news/Portuguese,cite_news_pt
+Turkish,:tr:Şablon:Haber kaynağı,Template:Haber kaynağı,Template:cite news/Turkish,cite_news_tr
+web templates,web templates,web templates,web templates,web templates
+language,native template,redirect,cs12 translator,function
+Arabic,:ar:قالب:استشهاد ويب,Template:استشهاد ويب,Template:cite web/Arabic,cite_web_ar
+Catalan,:ca:Plantilla:Ref-web,Template:Ref-web,Template:cite web/Catalan,cite_web_ca
+Danish,:da:Skabelon:Cite web,—,Template:cite web/Danish,cite_web_da
+,,Template:Kilde www,Template:cite web/Danish or Norwegian,cite_web_da_no
+Dutch,:nl:Sjabloon:Citeer web,Template:Citeer web,Template:cite web/Dutch,cite_web_nl
+Finnish,:fi:Malline:Verkkoviite,Template:Verkkoviite,Template:cite web/Finnish,cite_web_fi
+French,:fr:Modèle:Lien web,Template:Lien web,Template:cite web/French,cite_web_fr
+German,:de:Vorlage:Internetquelle,Template:Internetquelle,Template:cite web/German,cite_web_de
+Norwegian,:no:Mal:Kilde www,— See Danish/Norwegian —,Template:cite web/Norwegian,cite_web_no
+Polish,:pl:Szablon:Cytuj stronę,Template:Cytuj stronę,Template:cite web/Polish,cite_web_pl
+Portuguese,:pt:Predefinição:Citar web,Template:Citar web,Template:cite web/Portuguese,cite_web_pt
+Swedish,:sv:Mall:Webbref,Template:Webbref,Template:cite web/Swedish,cite_web_sv
+Turkish,:tr:Şablon:Web kaynağı,Template:Web kaynağı,Template:cite web/Turkish,cite_web_tr

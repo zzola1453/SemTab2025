@@ -1,0 +1,5 @@
+col0,col1
+Non-negativity,|r|_p \geq 0
+Positive-definiteness,|r|_p = 0 \iff r = 0
+Multiplicativity,|r s|_p = |r|_p|s|_p
+Non-Archimedean,"|r+s|_p \leq \max\left(|r|_p, |s|_p\right)"

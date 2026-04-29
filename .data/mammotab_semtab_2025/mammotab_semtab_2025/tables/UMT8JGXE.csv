@@ -1,0 +1,5 @@
+col0,col1
+chi-squared distribution,\sum_{i=1}^k \left(\frac{X_i-\mu_i}{\sigma_i}\right)^2
+noncentral chi-squared distribution,\sum_{i=1}^k \left(\frac{X_i}{\sigma_i}\right)^2
+chi distribution,\sqrt{\sum_{i=1}^k \left(\frac{X_i-\mu_i}{\sigma_i}\right)^2}
+noncentral chi distribution,\sqrt{\sum_{i=1}^k \left(\frac{X_i}{\sigma_i}\right)^2}

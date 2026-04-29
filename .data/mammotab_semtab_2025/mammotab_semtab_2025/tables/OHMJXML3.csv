@@ -1,0 +1,69 @@
+col0,col1,col2
+Devonshire,Dorset,Somerset
+Dorset,Wiltshire,Somerset
+Dorset,Hampshire,Wilts
+Southamptonshire,West Sussex,Surrey
+East Sussex,Surrey,West Sussex
+East Sussex,Kent,Surrey
+Berkshire,Buckinghamshire,Oxfordshire
+Berkshire,Surrey,Buckinghamshire
+Berkshire,Hants,Surrey
+Berkshire,Wilts,Hampshire
+Berkshire,Oxfordshire,Wilts
+Greater London,Surrey,Kent
+Essex,Hertfordshire,Greater London
+Essex,Greater London,Kent
+Cambridgeshire,Norfolk,Lincolnshire
+Cambridgeshire,Suffolk,Norfolk
+Cambridgeshire,Essex,Suffolk
+Cambridgeshire,Hertfordshire,Essex
+Cambridgeshire,Northamptonshire,Lincolnshire
+Lincolnshire,Rutland,Northamptonshire
+Bedfordshire,Hertfordshire,Cambridgeshire
+Bedfordshire,Buckinghamshire,Hertfordshire
+Bedfordshire,Northamptonshire,Buckinghamshire
+Bedfordshire,Cambridgeshire,Northamptonshire
+Buckinghamshire,Greater London,Hertfordshire
+Berkshire,Surrey,Greater London
+Buckinghamshire,Northamptonshire,Oxfordshire
+Bristol,SOM,Gloucestershire
+Gloucestershire,Somerset,Wiltshire
+Gloucestershire,Herefordshire,Wales
+Gloucestershire,Worcestershire,Herefordshire
+Gloucestershire,Warwickshire,Worcestershire
+Gloucestershire,Oxfordshire,Warwickshire
+Gloucestershire,County of Wiltshire,Oxfordshire
+Herefordshire,Shropshire,Wales
+Herefordshire,Worcestershire,Shropshire
+West Midlands,Worcestershire,Warwickshire
+Northamptonshire,Warwickshire,Oxfordshire
+Leicestershire,Lincolnshire,Nottinghamshire
+Leicestershire,Rutland,Lincolnshire
+Leicestershire,Northamptonshire,Rutland
+Leicestershire,Warwickshire,Northamptonshire
+Leicestershire,Staffordshire,Warwickshire
+Staffordshire,West Midlands,Warwickshire
+Staffordshire,Worcestershire,West Midlands
+Shropshire,Worcestershire,Staffordshire
+Derbyshire,South Yorkshire,West Yorkshire
+Derbyshire,Nottinghamshire,South Yorkshire
+Derbyshire,Leicestershire,Nottinghamshire
+Derbyshire,Staffordshire,Leicestershire
+Derbyshire,West Yorkshire,Greater Manchester
+Cheshire,Greater Manchester,Merseyside
+Cheshire,Derbyshire,Greater Manchester
+Cheshire,Staffordshire,Derbyshire
+Cheshire,Shropshire,Staffordshire
+Cheshire,Wales,Shropshire
+Greater Manchester,West Yorkshire,Lancashire
+Greater Manchester,Lancashire,Merseyside
+East Riding,Nottinghamshire,Lincolnshire
+East Riding,South Yorkshire,Nottinghamshire
+East Riding,North Yorkshire,South Yorkshire
+Lancashire,West Yorkshire,North Yorkshire
+North Yorkshire,West Yorkshire,South Yorkshire
+Durham,Tyne and Wear,Northumberland
+Cumbria,Durham,Northumberland
+Cumbria,North Yorkshire,Durham
+Cumbria,Lancashire,North Yorkshire
+Cumbria,Northumberland,Scotland
