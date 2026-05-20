@@ -10,7 +10,7 @@
 | RAGDify (2위) | 0.603 |
 | ditlab (3위) | 0.549 |
 
-**목표: F1 ≥ 0.80**
+**목표: F1 ≥ 0.758**
 
 ---
 
@@ -157,7 +157,7 @@ Wikidata 검색 쿼리를 생성하라.
 - [ ] NIL Confidence threshold 캘리브레이션
 - [ ] 오류 분석 → Disambiguation·Alias 처리 보강
 
-### Phase 3 — 최적화 (목표 F1 ≥ 0.80)
+### Phase 3 — 최적화 (목표 F1 ≥ 0.758)
 - [ ] 앙상블 voting 구현
 - [ ] Cross-column consistency 강제
 - [ ] 전체 870개 테이블 추론 및 최종 제출 파일 생성

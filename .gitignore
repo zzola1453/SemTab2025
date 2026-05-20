@@ -1,0 +1,71 @@
+# KG dump & large data files
+data/
+*.json.gz
+*.gz
+*.bz2
+*.ttl
+*.nt
+
+# ES data directory
+es_data/
+elasticsearch_data/
+
+# Embeddings & model weights
+models/
+embeddings_cache/
+*.npy
+*.pt
+*.bin
+*.ckpt
+*.safetensors
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test / coverage
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Output / results (large)
+output/
+results/
+*.submission.csv
+
+# Docker volumes
+pgdata/
+
+# Large runtime artifacts
+.indexing_cache/
+logs/
+.data/
+.claude/

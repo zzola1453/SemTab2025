@@ -1,0 +1,169 @@
+# Progress Tracker — SemTab CEA 시스템
+
+마지막 업데이트: 2026-05-17
+
+---
+
+## 🔵 Phase 1 — 기초 이해 & 환경 구축 (1~4주차)
+
+### 1주차 — 챌린지 태스크 분석
+- ✅ SemTab 2025 MammoTab 트랙 공식 문서 정독, CEA 태스크 정의 파악
+- ✅ 리더보드 상위 팀 확인 (ADFr F1=0.758 / RAGDify F1=0.603 / ditlab F1=0.549) — ADFr 논문 미공개 확인
+- ✅ 공개된 논문 2편 (RAGDify, Iterative Refinement) 확보 및 접근법 비교 정리
+- ✅ MammoTab 데이터셋 870개 테이블 샘플 다운로드 및 구조 파악
+
+### 2주차 — 선행 연구 심화 분석
+- ✅ RAGDify 논문 심화 분석: 4단계 파이프라인(전처리→후보검색→Debate→Verification) 구조 및 Elasticsearch 기반 검색 전략 정리
+- ✅ Iterative Refinement 논문 심화 분석: CTA-CEA 반복 구조, 전치 테이블 전략, 비지도 일관성 스코어(Consistency/Entropy) 개념 정리
+- ✅ Collective Inference 개념 정리 및 우리 시스템 적용 방안 검토
+- ✅ Wikidata KG v.20240720 데이터 포맷 및 규모 파악 (엔티티 수, 필드 구조)
+
+### 3주차 — 개발 환경 구축
+- ✅ Docker + Elasticsearch 환경 구축 및 동작 확인
+  - `docker-compose.yml` 작성 완료 (ES 8.13.4 + Kibana), WSL2 통합 활성화 완료
+- ✅ Wikidata KG 인덱싱 설계 (레이블·설명·alias 필드 구성)
+  - `scripts/index_wikidata.py` 구현 완료 — SQLite 중간 저장, 체크포인트, ES 재시도 포함
+- ✅ 인덱싱 파이프라인 구현 및 동작 검증
+
+### 4주차 — KG 전체 인덱싱 & Exact match 구현
+- ✅ Wikidata KG v.20240720 전체 인덱싱 완료 (2026-05-17)
+  - latest-all.nt.bz2 (163GB) 파싱, Phase 1 ~21시간 + Phase 2 86분
+  - ES `wikidata_entities` 인덱스: **78,647,123개** 엔티티 (label + description + aliases)
+  - 중간 bz2 멀티스트림 오류 해결 (bzcat subprocess 방식으로 전환)
+- ✅ Exact match 검색 모듈 구현 완료 (`src/cea/retrieval.py`)
+- ✅ 전체 826개 테이블 베이스라인 실행 완료 (ES BM25 top-1, no-debate)
+  - 77,140개 어노테이션 제출 / 90.9% 커버리지 (`output/baseline_no_debate_full.csv`)
+  - asyncio 이벤트 루프 캐싱 버그 발견 및 수정 (단일 루프로 전체 처리)
+  - 제출 파일 형식 검증 완료 (valid rows: 77,140 / Format OK)
+  - ✅ Google Form 제출 완료 (2026-05-18)
+  - ⏳ 공식 F1 점수 대기 중
+
+---
+
+## 🟡 Phase 2 — 파이프라인 구현 (5~9주차)
+
+> **전략 변경 (2026-05-17)**: LLM API 키 없는 방향으로 전환.
+> Debate/Verification/QueryRewriting은 코드 완성 상태로 보존하되, 당장 실험은 로컬 모델 우선.
+
+### 5주차 — 검색 고도화
+- ⬜ Fuzzy match(≥75%) 폴백 검색 구현 (row_hint 폴백은 구현됨)
+- ✅ LLM 쿼리 재작성 모듈 구현 (`src/cea/query_rewriter.py`) — API 키 없이 비활성화
+- ✅ **Cross-encoder 재순위** 구현 (`src/cea/reranker.py`) — API 키 불필요, 로컬 실행
+  - 모델: `cross-encoder/ms-marco-MiniLM-L-6-v2`
+  - 실행: `--rerank` 플래그
+- ⬜ BM25 vs Reranker F1 비교 실험 (공식 점수 대기 중)
+
+### 6주차 — 후보 선택 & 검증
+- ✅ LLM Debate 프롬프트 구현 (`src/cea/debate.py`) — API 키 시 활성화
+- ✅ LLM Verification 프롬프트 구현 (`src/cea/verification.py`) — API 키 시 활성화
+- ✅ Collective Inference iterative 구조 구현 (`pipeline.py`)
+- ✅ 실험 추적 시스템 구현 (`output/experiments.csv` + 메타데이터 JSON)
+- ⬜ 전체 826개 테이블 Reranker 실행 및 F1 비교
+
+### 7주차 — Dense Retrieval 하이브리드 검색
+- ⬜ E5 또는 BGE 로컬 임베딩 모델로 ES dense 인덱스 추가
+- ⬜ BM25 + Dense 하이브리드 검색 구현 (`HybridRetriever` 골격 완성됨)
+- ⬜ 하이브리드 vs BM25 단독 성능 비교
+
+### 8주차 — Collective Inference & 오류 분석
+- ✅ Collective Inference 코드 구현 완료 (`--collective` 플래그)
+- ⬜ Collective Inference 실험 및 효과 측정
+- ⬜ 오류 케이스 샘플링 및 유형 분류 (Disambiguation / Alias 미처리 / NIL 오판)
+
+### 9주차 — 중간 성능 평가
+- ✅ 전체 826개 테이블 1차 추론 완료 (BM25 top-1)
+- ✅ Google Form 제출 완료 (2026-05-18)
+- ⏳ 공식 F1 점수 대기 중
+- ⬜ F1 기반 오류 분석 및 개선 방향 결정
+
+---
+
+## 🔴 Phase 3 — 최적화 & 마무리 (10~14주차)
+
+### 10주차 — Disambiguation & Alias 집중 보강
+- ⬜ 오류 분석 결과 기반, 동명이인·약어 케이스 처리 강화
+- ⬜ 프롬프트 재설계 및 few-shot 예시 추가
+- ⬜ 보강 후 성능 재측정
+
+### 11주차 — NIL 탐지 최적화
+- ⬜ NIL Confidence threshold 캘리브레이션
+- ⬜ NIL 오판 케이스 집중 분석 및 Verification 프롬프트 개선
+- ⬜ Precision vs Recall 트레이드오프 조정
+
+### 12주차 — 앙상블 & 최종 튜닝
+- ⬜ 복수 retrieval 전략 결과 voting 앙상블 구현
+- ⬜ 전체 파이프라인 asyncio 병렬화로 속도 최적화
+- ⬜ 870개 테이블 최종 추론 실행
+
+### 13주차 — 최종 성능 검증 & 제출 준비
+- ⬜ F1 목표치(≥0.758) 달성 여부 확인
+- ⬜ 제출 형식(filename, row_id, col_id, entity_id) 검증
+- ⬜ 미달 시 취약 구간 집중 보완
+
+### 14주차 — 결과 정리 및 문서화
+- ⬜ 전체 시스템 구조 및 실험 결과 정리
+- ⬜ 제출 파일 최종 생성 및 Google Form 제출
+- ⬜ 연구 회고 및 향후 개선 방향 정리
+
+---
+
+## 2026-05-17 작업 내역
+
+**오늘 완료한 작업**
+
+- Wikidata KG v.20240720 전체 인덱싱 완료
+  - bz2 멀티스트림 오류 발생 → bzcat subprocess 방식으로 해결
+  - SQLite 중간 저장 + 라인/QID 체크포인트 + ES 재시도 로직 추가
+  - Phase 1 (NT→SQLite): ~21시간, 78,647,123 엔티티 파싱
+  - Phase 2 (SQLite→ES): 86분, 전체 인덱싱 완료
+- `scripts/index_wikidata.py` 전면 재작성 (재시도·체크포인트·알림 강화)
+- asyncio 이벤트 루프 캐싱 버그 발견 및 수정
+  - ES 클라이언트가 첫 번째 테이블 처리 후 폐기된 루프에 바인딩 → 2번째 테이블부터 silently 실패
+  - `run_on_target_file`을 단일 `asyncio.run()` 내에서 전체 테이블 처리하도록 수정
+- 전체 826개 테이블 베이스라인 실행 (ES BM25 top-1, no-debate)
+  - 총 84,907개 타겟 셀 → 77,140개 어노테이션 제출 (90.9% 커버리지)
+  - 제출 파일: `output/baseline_no_debate_full.csv` (형식 검증 완료)
+
+**다음 단계**
+
+1. `output/experiments/es_bm25_826t_full.csv` → Google Form 제출 → 공식 F1 확인
+2. F1 확인 후 Reranker 전체 826테이블 실행 → 비교
+3. Dense Hybrid 검색 구현 (로컬 임베딩, API 키 불필요)
+4. Collective Inference 실험
+
+---
+
+## 2026-05-14 작업 내역
+
+**오늘 완료한 작업 (3주차 집중)**
+
+- 프로젝트 구조 생성: `src/cea/`, `scripts/`, `tests/`
+- `.gitignore` 생성 (KG dump, ES 데이터, 모델 가중치 등 제외)
+- `docker-compose.yml` 작성 (ES 8.13.4 + Kibana, ES 메모리 2~4GB 설정)
+- `requirements.txt` 작성 (anthropic, elasticsearch, aiohttp, tqdm, tenacity 등)
+- `.env.example` 작성 (API key, 경로, 파이프라인 설정 템플릿)
+- **파이프라인 전체 구현**:
+  - `src/cea/preprocessing.py` — 셀 정규화, 테이블 로딩, 날짜·숫자 컬럼 자동 감지
+  - `src/cea/retrieval.py` — Wikidata API / ES 추상화 레이어 (`BaseRetriever`)
+  - `src/cea/debate.py` — Claude Haiku 기반 후보 선택 (top-5 candidates)
+  - `src/cea/verification.py` — Claude Haiku 기반 어노테이션 검증 (NIL 판단 포함)
+  - `src/cea/pipeline.py` — 비동기 end-to-end 파이프라인 (`CeaPipeline`)
+- `scripts/explore_data.py` — 데이터셋 통계 분석
+- `scripts/index_wikidata.py` — KG 인덱싱 스크립트 (KG 도착 즉시 실행 가능)
+- `scripts/run_baseline.py` — CLI 실행 도구 (테이블 수, 백엔드 선택 가능)
+- `tests/test_preprocessing.py` — 전처리 단위 테스트 7개 (전부 통과)
+- **데이터 탐색 결과**:
+  - 826개 테이블에 84,907개 타겟 셀, 테이블당 평균 102.8개
+  - 타겟 셀 94.7%가 텍스트(엔티티) 컬럼 — 날짜/숫자 필터링 유효
+  - col0(28.5%), col1(27.6%)에 집중 — 영화·인물·국가·조약 등 다양한 도메인
+- **Wikidata API 기반 미니 baseline 실행**:
+  - 3개 테이블, 304개 타겟 셀 처리
+  - 247개 어노테이션 제출 (제출률 81.2%)
+  - 샘플 품질 검증 4/4 정확 (Cameroon=Q1009, Eat My Dust!=Q3576864 등)
+  - 출력 형식 정상: `filename,row_id,col_id,entity_id`
+
+**다음 단계**
+
+1. Docker Desktop WSL2 통합 활성화 → ES 컨테이너 시작
+2. KG 다운로드 완료 후 `python3 scripts/index_wikidata.py --dump <경로>` 실행
+3. ES 인덱싱 완료 후 `--backend elasticsearch`로 전환해 성능 측정
