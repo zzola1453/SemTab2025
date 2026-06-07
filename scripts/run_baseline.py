@@ -34,8 +34,14 @@ EXPERIMENTS_LOG = "output/experiments.csv"
 
 def build_exp_name(args, use_debate: bool) -> str:
     parts = [args.backend.replace("_", "")]
-    if use_debate:
+    if getattr(args, "agent", False):
+        parts.append("agent")
+    elif use_debate:
         parts.append("debate")
+    elif args.rerank and args.dense_rerank:
+        parts.append("ensemble")
+    elif args.dense_rerank:
+        parts.append("dense")
     elif args.rerank:
         parts.append("rerank")
     else:
@@ -71,8 +77,8 @@ def append_experiment_log(exp_name: str, config: dict, stats: dict, output_csv: 
         if write_header:
             writer.writerow([
                 "exp_name", "timestamp", "backend", "tables", "debate", "rerank",
-                "verification", "collective", "total", "submitted", "skipped",
-                "submission_rate", "official_f1", "output_csv",
+                "dense_rerank", "verification", "collective", "total", "submitted",
+                "skipped", "submission_rate", "official_f1", "output_csv",
             ])
         writer.writerow([
             exp_name,
@@ -81,6 +87,7 @@ def append_experiment_log(exp_name: str, config: dict, stats: dict, output_csv: 
             config["tables"],
             config["debate"],
             config["rerank"],
+            config["dense_rerank"],
             config["verification"],
             config["collective"],
             stats["total"],
@@ -101,10 +108,17 @@ def main():
     parser.add_argument("--collective", action="store_true", help="Enable collective inference")
     parser.add_argument("--rerank", action="store_true", help="Enable local cross-encoder reranking (no API key needed)")
     parser.add_argument("--reranker-model", default="cross-encoder/ms-marco-MiniLM-L-6-v2", help="Cross-encoder model name")
+    parser.add_argument("--dense-rerank", action="store_true", help="Enable bi-encoder dense reranking (E5/BGE)")
+    parser.add_argument("--dense-model", default="intfloat/e5-large-v2", help="Bi-encoder model name")
+    parser.add_argument("--bm25-weight", type=float, default=0.3, help="BM25 score weight in dense hybrid (0-1)")
+    parser.add_argument("--ensemble-weight", type=float, default=0.6, help="Cross-encoder weight when using ensemble (0-1)")
     parser.add_argument("--nil-threshold", type=float, default=None, help="Score threshold below which top-1 is treated as NIL")
     parser.add_argument("--backend", default="wikidata_api", choices=["wikidata_api", "elasticsearch", "hybrid"])
     parser.add_argument("--llm-backend", default="ollama", choices=["ollama", "groq", "anthropic"], help="LLM 백엔드 선택")
     parser.add_argument("--llm-model", default="qwen2.5:14b", help="LLM 모델명")
+    parser.add_argument("--agent", action="store_true", help="Enable ReAct Agentic mode (tool calling)")
+    parser.add_argument("--agent-model", default="llama3.1:8b", help="Model for the ReAct agent")
+    parser.add_argument("--agent-max-steps", type=int, default=5, help="Max tool-calling steps per cell")
     parser.add_argument("--exp-name", default=None, help="Experiment name (auto-generated if omitted)")
     parser.add_argument("--output", default=None, help="Output CSV path (auto-generated from exp-name if omitted)")
     args = parser.parse_args()
@@ -131,12 +145,19 @@ def main():
         "debate": use_debate,
         "rerank": args.rerank,
         "reranker_model": args.reranker_model if args.rerank else None,
+        "dense_rerank": args.dense_rerank,
+        "dense_model": args.dense_model if args.dense_rerank else None,
+        "bm25_weight": args.bm25_weight if args.dense_rerank else None,
+        "ensemble_weight": args.ensemble_weight if (args.rerank and args.dense_rerank) else None,
         "nil_threshold": args.nil_threshold,
         "verification": args.verification,
         "query_rewriting": args.query_rewriting,
         "collective": args.collective,
         "llm_backend": args.llm_backend,
         "llm_model": args.llm_model,
+        "agent": args.agent,
+        "agent_model": args.agent_model if args.agent else None,
+        "agent_max_steps": args.agent_max_steps if args.agent else None,
     }
 
     print(f"Experiment: {exp_name}")
@@ -152,9 +173,16 @@ def main():
         use_collective=args.collective,
         use_reranker=args.rerank,
         reranker_model=args.reranker_model,
+        use_dense_reranker=args.dense_rerank,
+        dense_model=args.dense_model,
+        bm25_weight=args.bm25_weight,
+        ensemble_weight=args.ensemble_weight,
         nil_threshold=args.nil_threshold,
         llm_backend=args.llm_backend,
         llm_model=args.llm_model,
+        use_agent=args.agent,
+        agent_model=args.agent_model,
+        agent_max_steps=args.agent_max_steps,
     )
 
     start = time.time()

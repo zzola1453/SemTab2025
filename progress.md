@@ -1,6 +1,6 @@
 # Progress Tracker — SemTab CEA 시스템
 
-마지막 업데이트: 2026-05-17
+마지막 업데이트: 2026-06-08
 
 ---
 
@@ -37,6 +37,9 @@
   - 제출 파일 형식 검증 완료 (valid rows: 77,140 / Format OK)
   - ✅ Google Form 제출 완료 (2026-05-18)
   - ⏳ 공식 F1 점수 대기 중
+- ✅ Ollama Debate 결과 Google Form 제출 완료 (2026-05-26)
+  - `output/experiments/ollama_debate_826t_full.csv`, 51,894개 어노테이션, 61.1% 제출률
+  - ⏳ 공식 F1 점수 대기 중
 
 ---
 
@@ -46,35 +49,68 @@
 > Debate/Verification/QueryRewriting은 코드 완성 상태로 보존하되, 당장 실험은 로컬 모델 우선.
 
 ### 5주차 — 검색 고도화
-- ⬜ Fuzzy match(≥75%) 폴백 검색 구현 (row_hint 폴백은 구현됨)
+- ✅ Fuzzy match(≥75%) 폴백 검색 구현 (`retrieval.py` — ES fuzziness AUTO + match 75%)
 - ✅ LLM 쿼리 재작성 모듈 구현 (`src/cea/query_rewriter.py`) — API 키 없이 비활성화
 - ✅ **Cross-encoder 재순위** 구현 (`src/cea/reranker.py`) — API 키 불필요, 로컬 실행
   - 모델: `cross-encoder/ms-marco-MiniLM-L-6-v2`
   - 실행: `--rerank` 플래그
-- ⬜ BM25 vs Reranker F1 비교 실험 (공식 점수 대기 중)
+- ✅ BM25 vs Reranker 전체 826테이블 실행 완료 (2026-06-01)
+  - `output/experiments/es_rerank_826t.csv`, 76,797개 어노테이션, 90.4% 커버리지, 소요 19분
+  - ✅ Google Form 제출 완료 → **F1: 0.344, P: 0.362, R: 0.328** (공식 결과 2026-06-06)
 
 ### 6주차 — 후보 선택 & 검증
 - ✅ LLM Debate 프롬프트 구현 (`src/cea/debate.py`) — API 키 시 활성화
 - ✅ LLM Verification 프롬프트 구현 (`src/cea/verification.py`) — API 키 시 활성화
 - ✅ Collective Inference iterative 구조 구현 (`pipeline.py`)
 - ✅ 실험 추적 시스템 구현 (`output/experiments.csv` + 메타데이터 JSON)
-- ⬜ 전체 826개 테이블 Reranker 실행 및 F1 비교
+- ✅ 전체 826개 테이블 Reranker 실행 완료 (2026-06-01)
 
 ### 7주차 — Dense Retrieval 하이브리드 검색
-- ⬜ E5 또는 BGE 로컬 임베딩 모델로 ES dense 인덱스 추가
-- ⬜ BM25 + Dense 하이브리드 검색 구현 (`HybridRetriever` 골격 완성됨)
-- ⬜ 하이브리드 vs BM25 단독 성능 비교
+- ✅ Bi-encoder Dense Reranker 구현 (`src/cea/reranker.py` — `BiEncoderReranker`)
+  - 모델: `intfloat/e5-large-v2` (이미 캐시됨)
+  - BM25 top-10 후보 → E5 dense 점수 계산 → BM25(30%) + Dense(70%) 혼합
+  - 실행: `--dense-rerank` 플래그
+- ✅ Ensemble Reranker 구현 (`EnsembleReranker`)
+  - Cross-encoder + Bi-encoder 정규화 앙상블 (cross_weight=0.6)
+  - 실행: `--rerank --dense-rerank` 플래그
+- ✅ 전체 826테이블 Dense 실행 완료 (2026-06-01)
+  - `output/experiments/es_dense_826t.csv`, 76,974개 어노테이션, 90.7%, 92분
+  - ✅ Google Form 제출 완료 → **F1: 0.344, P: 0.362, R: 0.328** (공식 결과 2026-06-06)
+- ✅ 전체 826테이블 Ensemble 실행 완료 (2026-06-01)
+  - `output/experiments/es_ensemble_826t.csv`, 76,974개 어노테이션, 90.7%, 104분
+  - ✅ Google Form 제출 완료 → **F1: 0.378, P: 0.398, R: 0.360** (공식 결과 2026-06-06, 현재 최고)
+- 비교: Cross-encoder vs Dense 51.3% 다른 예측 → 앙상블 효과 기대
+- ⬜ RRF(Reciprocal Rank Fusion) 앙상블로 교체 (나중에)
 
-### 8주차 — Collective Inference & 오류 분석
-- ✅ Collective Inference 코드 구현 완료 (`--collective` 플래그)
-- ⬜ Collective Inference 실험 및 효과 측정
-- ⬜ 오류 케이스 샘플링 및 유형 분류 (Disambiguation / Alias 미처리 / NIL 오판)
+### 8주차 — Agentic LLM 전략 전환 & 실험
+- ✅ ReAct-style Agentic CEA 구현 완료 (`src/cea/agent.py`, `src/cea/tools.py`)
+  - 도구: `search_entities`, `search_fuzzy`, `get_entity_details`, `submit_answer`
+  - pipeline.py `--agent` 플래그 통합, run_baseline.py `--agent-model`, `--agent-max-steps` 추가
+- ✅ Agent 10테이블 소규모 실험 완료 (2026-06-06~07)
+
+  | 실험 | 모델 | steps | 제출 | 커버리지 | 소요 | 비고 |
+  |------|------|-------|------|---------|------|------|
+  | elasticsearch_agent_10t | llama3.1:8b | 5 | 615 | 72.0% | 25분 | 형식 오류 다수 |
+  | agent_llama31_v2_10t | llama3.1:8b | 5 | 679 | 79.5% | 20분 | Q42→Eat My Dust! 오판 |
+  | agent_qwen25_14b_10t | qwen2.5:14b | 5 | 679 | 79.5% | 67분 | 품질 향상 확인 |
+  | agent_qwen25_14b_step2_10t | qwen2.5:14b | 2 | 679 | 79.5% | 36분 | 속도↑ 품질 71.4% 동일 |
+  | agent_qwen25_step2_nofilter_10t | qwen2.5:14b | 2 | **854** | **100%** | 47분 | 숫자/날짜 필터 제거 후 |
+  | agent_qwen25_step2_fixed_10t | qwen2.5:14b | 2 | **854** | **100%** | 47분 | P-prefix QID 검증 추가 |
+
+- ✅ 핵심 발견 — 커버리지 79.5% 원인 분석:
+  - `is_numeric_column` / `is_date_column` 필터가 타겟 연도 셀(1976, 1981 등)을 잘못 스킵
+  - 타겟 파일이 어노테이션 대상을 이미 지정하므로 필터 불필요 → **제거** (`pipeline.py`)
+  - P-prefix property ID(P1907 등) 제출 버그 발견 → `^Q\d+$` 정규식 검증 추가
+  - 수정 후 커버리지 **100%** 달성, 비정상 QID 0개
+- 🔄 826t qwen step2 전체 실행 중 (2026-06-07 시작, 예상 완료 6월 11일)
+  - `output/experiments/agent_qwen25_step2_fixed_826t.csv` — 현재 41/826 테이블 완료 (5%)
 
 ### 9주차 — 중간 성능 평가
 - ✅ 전체 826개 테이블 1차 추론 완료 (BM25 top-1)
-- ✅ Google Form 제출 완료 (2026-05-18)
-- ⏳ 공식 F1 점수 대기 중
-- ⬜ F1 기반 오류 분석 및 개선 방향 결정
+- ✅ Google Form 제출 완료 (2026-05-18) — F1 미수신 (BM25 단독 결과 별도 평가 예정)
+- ✅ 공식 F1 수신 (2026-06-06): Rerank=0.344 / Dense=0.344 / Ensemble=0.378
+- ✅ 현재 최고: **Ensemble F1=0.378** — 목표(0.758) 대비 약 0.38 격차
+- ✅ F1 기반 오류 분석 → Agentic LLM 전략으로 전환 (`proposal.md`)
 
 ---
 

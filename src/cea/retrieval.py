@@ -21,6 +21,10 @@ class BaseRetriever(ABC):
     async def search(self, query: str, limit: int = 10) -> list[Candidate]:
         ...
 
+    async def search_fuzzy(self, query: str, limit: int = 10) -> list[Candidate]:
+        # Default: fall back to regular search; ES overrides this
+        return await self.search(query, limit)
+
     def search_sync(self, query: str, limit: int = 10) -> list[Candidate]:
         return asyncio.run(self.search(query, limit))
 
@@ -121,6 +125,43 @@ class ElasticsearchRetriever(BaseRetriever):
                 description=src.get("description", ""),
                 score=hit["_score"],
                 source="elasticsearch",
+            ))
+        return results
+
+    async def search_fuzzy(self, query: str, limit: int = 10) -> list[Candidate]:
+        client = self._get_client()
+        body = {
+            "query": {
+                "bool": {
+                    "should": [
+                        {"fuzzy": {"label": {"value": query, "fuzziness": "AUTO", "boost": 5}}},
+                        {"fuzzy": {"aliases": {"value": query, "fuzziness": "AUTO", "boost": 3}}},
+                        {"match": {
+                            "label": {
+                                "query": query,
+                                "minimum_should_match": "75%",
+                                "boost": 2,
+                            }
+                        }},
+                    ]
+                }
+            },
+            "size": limit,
+        }
+        try:
+            resp = await client.search(index=self.index, body=body)
+        except Exception:
+            return []
+
+        results = []
+        for hit in resp["hits"]["hits"]:
+            src = hit["_source"]
+            results.append(Candidate(
+                qid=src.get("qid", ""),
+                label=src.get("label", ""),
+                description=src.get("description", ""),
+                score=hit["_score"],
+                source="fuzzy",
             ))
         return results
 

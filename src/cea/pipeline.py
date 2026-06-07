@@ -9,8 +9,6 @@ from tqdm import tqdm
 from .preprocessing import (
     CellContext,
     get_cell_context,
-    is_numeric_column,
-    is_date_column,
     load_table,
     normalize_cell,
 )
@@ -18,8 +16,9 @@ from .retrieval import BaseRetriever, Candidate, WikidataAPIRetriever, get_retri
 from .debate import debate
 from .verification import verify
 from .query_rewriter import rewrite_query
-from .reranker import CrossEncoderReranker
+from .reranker import BiEncoderReranker, CrossEncoderReranker, EnsembleReranker
 from .llm_client import create_client
+from .agent import CeaAgent
 
 
 @dataclass
@@ -43,10 +42,17 @@ class CeaPipeline:
         use_collective: bool = False,
         use_reranker: bool = False,
         reranker_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
+        use_dense_reranker: bool = False,
+        dense_model: str = "intfloat/e5-large-v2",
+        bm25_weight: float = 0.3,
+        ensemble_weight: float = 0.6,
         nil_threshold: float | None = None,
         llm_backend: str = "ollama",
         llm_api_key: str | None = None,
         llm_model: str = "qwen2.5:14b",
+        use_agent: bool = False,
+        agent_model: str = "llama3.1:8b",
+        agent_max_steps: int = 5,
         **retriever_kwargs,
     ):
         self.tables_dir = tables_dir
@@ -58,14 +64,34 @@ class CeaPipeline:
         self.use_collective = use_collective
         self.llm_model = llm_model
 
-        needs_llm = use_debate or use_verification or use_query_rewriting
+        needs_llm = use_debate or use_verification or use_query_rewriting or use_agent
         if needs_llm:
             api_key = llm_api_key or os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("GROQ_API_KEY")
             self.client = create_client(llm_backend, api_key)
         else:
             self.client = None
 
-        self.reranker = CrossEncoderReranker(reranker_model, nil_threshold) if use_reranker else None
+        self.use_agent = use_agent
+        self.agent: CeaAgent | None = None
+        if use_agent and self.client:
+            self.agent = CeaAgent(
+                retriever=self.retriever,
+                client=self.client,
+                model=agent_model,
+                max_steps=agent_max_steps,
+            )
+
+        cross = CrossEncoderReranker(reranker_model, nil_threshold) if use_reranker else None
+        bi = BiEncoderReranker(dense_model, bm25_weight, nil_threshold) if use_dense_reranker else None
+
+        if cross and bi:
+            self.reranker: CrossEncoderReranker | BiEncoderReranker | EnsembleReranker | None = EnsembleReranker(cross, bi, ensemble_weight, nil_threshold)
+        elif cross:
+            self.reranker = cross
+        elif bi:
+            self.reranker = bi
+        else:
+            self.reranker = None
 
     # ------------------------------------------------------------------ #
     # Single-cell annotation                                               #
@@ -73,11 +99,6 @@ class CeaPipeline:
 
     async def _annotate_cell_async(self, ctx: CellContext) -> AnnotationResult:
         if not ctx.cell_value:
-            return AnnotationResult(ctx.table_id, ctx.row_id, ctx.col_id, "NIL", skipped=True)
-
-        # Skip numeric/date-only cells (not entity mentions)
-        col_sample = ctx.col_values + [ctx.cell_value]
-        if is_numeric_column(col_sample) or is_date_column(col_sample):
             return AnnotationResult(ctx.table_id, ctx.row_id, ctx.col_id, "NIL", skipped=True)
 
         candidates = await self.retriever.search(ctx.cell_value, limit=self.max_candidates)
@@ -88,6 +109,10 @@ class CeaPipeline:
                 candidates = await self.retriever.search(
                     f"{ctx.cell_value} {row_hint[:60]}", limit=self.max_candidates
                 )
+
+        # Fuzzy match fallback (≥75% similarity via ES fuzziness)
+        if not candidates:
+            candidates = await self.retriever.search_fuzzy(ctx.cell_value, limit=self.max_candidates)
 
         # LLM query rewriting fallback when candidates are scarce
         if len(candidates) < 3 and self.use_query_rewriting and self.client:
@@ -104,12 +129,25 @@ class CeaPipeline:
         if not candidates:
             return AnnotationResult(ctx.table_id, ctx.row_id, ctx.col_id, "NIL", skipped=True)
 
-        if self.use_debate and self.client:
+        if self.use_agent and self.agent:
+            entity_id = await self.agent.annotate(ctx)
+            # If agent returns NIL but we have candidates, fall back to reranker/top-1
+            if entity_id == "NIL" and candidates:
+                if self.reranker:
+                    entity_id = await asyncio.to_thread(self.reranker.rerank, ctx, candidates[:10])
+                else:
+                    entity_id = candidates[0].qid
+        elif self.use_debate and self.client:
             entity_id = debate(ctx, candidates[:5], self.client, self.llm_model)
         elif self.reranker:
             entity_id = await asyncio.to_thread(self.reranker.rerank, ctx, candidates[:10])
         else:
             entity_id = candidates[0].qid
+
+        # Reject malformed IDs (property IDs like P1907, non-Q prefixes)
+        import re as _re
+        if not _re.match(r"^Q\d+$", entity_id or ""):
+            entity_id = candidates[0].qid if candidates else "NIL"
 
         if entity_id == "NIL":
             return AnnotationResult(ctx.table_id, ctx.row_id, ctx.col_id, "NIL", skipped=True)

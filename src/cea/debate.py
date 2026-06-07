@@ -6,7 +6,7 @@ from .llm_client import call_llm
 _DEBATE_SYSTEM = (
     "You are a Wikidata entity disambiguation expert. "
     "Given a table cell and a list of Wikidata candidates, select the best matching entity. "
-    "Respond ONLY with the entity QID (e.g. Q12345) or NIL if none match. No explanation."
+    "Respond ONLY with the entity QID (e.g. Q12345). No explanation."
 )
 
 _DEBATE_PROMPT = """\
@@ -22,8 +22,7 @@ Candidates:
 
 Select the best matching Wikidata entity QID for the cell value "{cell_value}".
 Consider: (1) label match, (2) column context, (3) table context.
-If no candidate is a plausible match, output NIL.
-Output only the QID or NIL."""
+Output only the QID."""
 
 
 def _format_confirmed(confirmed: dict) -> str:
@@ -33,7 +32,7 @@ def _format_confirmed(confirmed: dict) -> str:
     return "Already confirmed in this table:\n" + "\n".join(lines)
 
 
-def _format_candidates(candidates: list[Candidate]) -> str:
+def _format_candidates(candidates: list[Candidate]) -> str: 
     lines = []
     for i, c in enumerate(candidates, 1):
         desc = c.description[:100] if c.description else "(no description)"
@@ -72,8 +71,6 @@ def debate(
     )
 
     result = call_llm(client, model, _DEBATE_SYSTEM, prompt, max_tokens=20)
-    if result.upper() == "NIL":
-        return "NIL"
     if result.startswith("Q") and result[1:].isdigit():
         return result
     return candidates[0].qid
