@@ -1,6 +1,8 @@
 """ReAct-style Agentic CEA using Ollama tool calling (OpenAI-compatible API)."""
 from __future__ import annotations
 
+import asyncio
+import functools
 import json
 import re
 
@@ -108,15 +110,23 @@ class CeaAgent:
         messages: list[dict] = [{"role": "user", "content": prompt}]
         fallback_qid: str | None = None
 
+        loop = asyncio.get_event_loop()
         for _ in range(self.max_steps):
             try:
-                resp = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=messages,
-                    tools=TOOLS,
-                    tool_choice="auto",
+                resp = await asyncio.wait_for(
+                    loop.run_in_executor(
+                        None,
+                        functools.partial(
+                            self.client.chat.completions.create,
+                            model=self.model,
+                            messages=messages,
+                            tools=TOOLS,
+                            tool_choice="auto",
+                        ),
+                    ),
+                    timeout=120.0,
                 )
-            except Exception:
+            except (asyncio.TimeoutError, Exception):
                 break
 
             msg = resp.choices[0].message
@@ -181,13 +191,19 @@ class CeaAgent:
     async def _execute(self, fn: str, args: dict) -> str:
         if fn == "search_entities":
             query = str(args.get("query", ""))
-            limit = min(int(args.get("limit", 5)), 10)
+            try:
+                limit = min(int(args.get("limit", 5)), 10)
+            except (ValueError, TypeError):
+                limit = 5
             candidates = await self.retriever.search(query, limit)
             return format_candidates(candidates)
 
         if fn == "search_fuzzy":
             query = str(args.get("query", ""))
-            limit = min(int(args.get("limit", 5)), 10)
+            try:
+                limit = min(int(args.get("limit", 5)), 10)
+            except (ValueError, TypeError):
+                limit = 5
             candidates = await self.retriever.search_fuzzy(query, limit)
             return format_candidates(candidates)
 
