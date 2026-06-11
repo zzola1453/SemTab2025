@@ -51,20 +51,21 @@ CSV 테이블
     ↓
 1. 전처리 (preprocessing.py)
    - 셀 값 정규화, HTML 제거
-   - 숫자/날짜 컬럼 자동 감지 및 스킵
     ↓
 2. 후보 검색 (retrieval.py)
    - BM25 (Elasticsearch) — 기본
-   - Dense Hybrid (BM25 + 임베딩) — 개발 중
-   - 후보 없을 시 row 컨텍스트 포함 재검색
+   - Dense Hybrid (BM25 + E5 임베딩)
+   - Fuzzy match 폴백
     ↓
-3. 후보 선택 (debate.py / reranker.py)
-   - [API 키 없음] Cross-encoder 로컬 재순위 (reranker.py)
-   - [API 키 있음] Claude Haiku Debate (debate.py)
+3a. [--rerank] 재순위 (reranker.py)
+    - Cross-encoder / Bi-encoder / Ensemble
     ↓
-4. 검증 (verification.py) — API 키 있을 때
-   - 셀·컬럼·테이블 수준 일관성 확인
-   - NIL 명시 판단
+3b. [--agent] ReAct Agent (agent.py) ← 최고 성능
+    - search_entities / search_fuzzy / get_entity_details / submit_answer
+    - LLM이 능동적으로 검색·재검색·세부조회 반복
+    ↓
+4. [파이프라인 모드] Debate & Verification (debate.py / verification.py)
+   - Collective Inference (--collective 플래그)
     ↓
 table_id, row_id, col_id, entity_id
 ```
@@ -73,9 +74,14 @@ table_id, row_id, col_id, entity_id
 
 ## 실험 결과
 
-| 실험 | 어노테이션 수 | 커버리지 | 공식 F1 |
-|------|-------------|---------|---------|
-| ES BM25 top-1 (826테이블) | 77,140 | 90.9% | 대기 중 |
+| 실험 | 어노테이션 수 | 커버리지 | 공식 F1 | 공식 P | 공식 R |
+|------|-------------|---------|---------|--------|--------|
+| ES BM25 baseline (826t) | 77,140 | 90.9% | — | — | — |
+| Ollama Debate (826t) | 51,894 | 61.1% | — | — | — |
+| Cross-encoder Reranker (826t) | 76,797 | 90.4% | 0.344 | 0.362 | 0.328 |
+| Dense Reranker E5 (826t) | 76,974 | 90.7% | 0.344 | 0.362 | 0.328 |
+| **Ensemble Reranker (826t)** | 76,974 | 90.7% | **0.378** | **0.398** | **0.360** |
+| ReAct Agent qwen2.5:14b (826t) | 84,512 | 99.5% | **0.412** | — | — |
 
 결과 파일: `output/experiments/` / 실험 로그: `output/experiments.csv`
 
@@ -121,8 +127,11 @@ docker compose up -d  # Elasticsearch 시작
 # BM25 top-1 (API 키 불필요)
 python3 scripts/run_baseline.py --backend elasticsearch --tables 826 --no-debate
 
-# Cross-encoder 재순위 (API 키 불필요)
-python3 scripts/run_baseline.py --backend elasticsearch --tables 826 --no-debate --rerank
+# Ensemble Reranker (API 키 불필요, F1=0.378)
+python3 scripts/run_baseline.py --backend elasticsearch --tables 826 --no-debate --rerank --dense-rerank
+
+# ReAct Agent (로컬 Ollama 필요, F1=0.412)
+python3 scripts/run_baseline.py --backend elasticsearch --tables 826 --agent --agent-model qwen2.5:14b --agent-max-steps 2
 
 # LLM Debate 포함 (Anthropic API 키 필요)
 python3 scripts/run_baseline.py --backend elasticsearch --tables 826
@@ -141,7 +150,8 @@ python3 scripts/index_wikidata.py --dump /path/to/latest-all.nt.bz2
 | 구성 요소 | 사용 기술 |
 |-----------|-----------|
 | 검색 엔진 | Elasticsearch 8.13 (BM25) |
-| 로컬 재순위 | sentence-transformers cross-encoder |
+| 로컬 재순위 | sentence-transformers cross-encoder / `intfloat/e5-large-v2` |
+| ReAct Agent | Ollama (`qwen2.5:14b`, `llama3.1:8b` 등) |
 | LLM (선택) | Claude Haiku (Anthropic API) |
 | 비동기 처리 | asyncio + aiohttp |
 | 인프라 | Docker + Docker Compose |
