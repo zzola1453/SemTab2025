@@ -52,17 +52,20 @@
 - BM25 + Dense 하이브리드 검색 구현
 - 하이브리드 vs BM25 단독 성능 비교 (Recall 변화 분석)
 
-### 8주차 — Collective Inference 구현
+### 8주차 — Agentic LLM 전략 전환 & 전체 실행 ✅
 
-- 같은 테이블 내 확정 어노테이션을 다음 셀 컨텍스트로 재활용하는 iterative 로직 구현
-- Cross-column consistency 체크 추가
-- 전체 파이프라인 통합 테스트 (200개 테이블)
+- ✅ ReAct-style Agent 구현 (`src/cea/agent.py`, `src/cea/tools.py`)
+- ✅ 커버리지 100% 달성 (숫자/날짜 필터 제거, P-prefix QID 검증 추가)
+- ✅ 826개 테이블 전체 실행 완료 (qwen2.5:14b, step=2, 약 40시간)
+  - 84,512개 어노테이션 / 99.5% 커버리지
+  - ✅ Google Form 제출 완료 (2026-06-11) — F1 결과 대기 중
 
-### 9주차 — 중간 성능 평가 & 오류 분석
+### 9주차 — 중간 성능 평가 & 오류 분석 ✅
 
-- 전체 870개 테이블 1차 추론 실행
-- F1·Precision·Recall 측정, 오류 케이스 샘플링
-- 오류 유형 분류 (Disambiguation / Alias 미처리 / NIL 오판 등)
+- ✅ 전체 826개 테이블 1차 추론 실행 완료 (BM25 top-1, 2026-05-18 제출)
+- ✅ 공식 F1 수신 (2026-06-06): Rerank=0.344 / Dense=0.344 / Ensemble=0.378
+- ✅ 현재 최고: **Ensemble F1=0.378** — Agent 실험 결과 대기 중
+- ✅ 오류 분석 → Agentic LLM 전략 채택
 
 ---
 
