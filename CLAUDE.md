@@ -147,13 +147,13 @@ Wikidata 검색 쿼리를 생성하라.
 
 ## 개발 단계
 
-### Phase 1 — 베이스라인 (목표 F1 ≥ 0.55) ✅ 완료
+### Phase 1 — 베이스라인 ✅ 완료
 - [x] Wikidata KG v.20240720 Elasticsearch 인덱싱 (78,647,123개 엔티티)
 - [x] Exact match + LLM 쿼리 재작성 + Fuzzy 검색 구현
 - [x] Debate + Verification 프롬프트 구현
 - [x] 출력 형식 검증 및 제출 테스트
 
-### Phase 2 — 고도화 (목표 F1 ≥ 0.70) ✅ 완료
+### Phase 2 — 고도화 ✅ 완료
 - [x] Dense Retrieval 하이브리드 레이어 추가 (CrossEncoder + BiEncoder E5)
 - [x] ReAct-style Agent 구현 (ES search, fuzzy, entity details)
 - [ ] Collective Inference (iterative 테이블 단위 배치) 구현
