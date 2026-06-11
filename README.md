@@ -81,7 +81,7 @@ table_id, row_id, col_id, entity_id
 | Cross-encoder Reranker (826t) | 76,797 | 90.4% | 0.344 | 0.362 | 0.328 |
 | Dense Reranker E5 (826t) | 76,974 | 90.7% | 0.344 | 0.362 | 0.328 |
 | **Ensemble Reranker (826t)** | 76,974 | 90.7% | **0.378** | **0.398** | **0.360** |
-| ReAct Agent qwen2.5:14b (826t) | 84,512 | 99.5% | **0.412** | — | — |
+| ReAct Agent qwen2.5:14b (826t) | 84,512 | 99.5% | — | — | — |
 
 결과 파일: `output/experiments/` / 실험 로그: `output/experiments.csv`
 
