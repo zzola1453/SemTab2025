@@ -60,7 +60,7 @@ CSV 테이블
 3a. [--rerank] 재순위 (reranker.py)
     - Cross-encoder / Bi-encoder / Ensemble
     ↓
-3b. [--agent] ReAct Agent (agent.py) ← 최고 성능
+3b. [--agent] ReAct Agent (agent.py)
     - search_entities / search_fuzzy / get_entity_details / submit_answer
     - LLM이 능동적으로 검색·재검색·세부조회 반복
     ↓
@@ -76,12 +76,12 @@ table_id, row_id, col_id, entity_id
 
 | 실험 | 어노테이션 수 | 커버리지 | 공식 F1 | 공식 P | 공식 R |
 |------|-------------|---------|---------|--------|--------|
-| ES BM25 baseline (826t) | 77,140 | 90.9% | — | — | — |
-| Ollama Debate (826t) | 51,894 | 61.1% | — | — | — |
+| ES BM25 baseline (826t) | 77,140 | 90.9% | 0.242 | 0.254 | 0.231 |
+| **Ollama Debate (826t)** | **51,894** | **61.1%** | **0.489** | **0.645** | **0.394** |
 | Cross-encoder Reranker (826t) | 76,797 | 90.4% | 0.344 | 0.362 | 0.328 |
 | Dense Reranker E5 (826t) | 76,974 | 90.7% | 0.344 | 0.362 | 0.328 |
-| **Ensemble Reranker (826t)** | 76,974 | 90.7% | **0.378** | **0.398** | **0.360** |
-| ReAct Agent qwen2.5:14b (826t) | 84,512 | 99.5% | — | — | — |
+| Ensemble Reranker (826t) | 76,974 | 90.7% | 0.378 | 0.398 | 0.360 |
+| ReAct Agent qwen2.5:14b (826t) | 84,512 | 99.5% | 0.332 | 0.332 | 0.331 |
 
 결과 파일: `output/experiments/` / 실험 로그: `output/experiments.csv`
 
@@ -130,7 +130,7 @@ python3 scripts/run_baseline.py --backend elasticsearch --tables 826 --no-debate
 # Ensemble Reranker (API 키 불필요, F1=0.378)
 python3 scripts/run_baseline.py --backend elasticsearch --tables 826 --no-debate --rerank --dense-rerank
 
-# ReAct Agent (로컬 Ollama 필요, F1=0.412)
+# ReAct Agent (로컬 Ollama 필요, F1=0.332)
 python3 scripts/run_baseline.py --backend elasticsearch --tables 826 --agent --agent-model qwen2.5:14b --agent-max-steps 2
 
 # LLM Debate 포함 (Anthropic API 키 필요)

@@ -153,28 +153,33 @@ Wikidata 검색 쿼리를 생성하라.
 - [x] Debate + Verification 프롬프트 구현
 - [x] 출력 형식 검증 및 제출 테스트
 
-### Phase 2 — 고도화 ✅ 완료
+### Phase 2 — 고도화 (목표 F1 ≥ 0.70) ❌ 미달성 (최고 F1=0.489)
 - [x] Dense Retrieval 하이브리드 레이어 추가 (CrossEncoder + BiEncoder E5)
-- [x] ReAct-style Agent 구현 (ES search, fuzzy, entity details)
+- [x] ReAct-style Agent 구현 — 효과 미미 (F1=0.332, Ensemble 대비 낮음)
 - [ ] Collective Inference (iterative 테이블 단위 배치) 구현
 - [ ] NIL Confidence threshold 캘리브레이션
 - [ ] 오류 분석 → Disambiguation·Alias 처리 보강
 
 ### Phase 3 — 최적화 (목표 F1 ≥ 0.758) 🔄 진행 중
 - [x] 앙상블 voting 구현 (ES Ensemble F1=0.378)
+- [ ] **[최우선] Debate Recall 향상**: 커버리지 61.1% → 90%+ (BM25 폴백 + NIL threshold 조정)
+- [ ] **[최우선] Collective Inference**: 확정 어노테이션 재활용으로 컨텍스트 강화
 - [ ] Cross-column consistency 강제
-- [ ] Collective Inference 강화
 - [ ] 전체 826개 테이블 추론 및 최종 제출 파일 생성
 
-### 제출 이력
-| 실험 | 커버리지 | F1 |
-|------|---------|-----|
-| BM25 top-1 (no-debate) | 90.9% | - |
-| Ollama Debate | 61.1% | - |
-| ES Rerank | 90.4% | 0.344 |
-| ES Dense | 90.7% | 0.344 |
-| ES Ensemble | 90.7% | **0.378** |
-| Agent qwen2.5:14b step=2 | 99.5% | 대기 중 |
+### 제출 이력 (공식 평가 결과 — 2026-06-12)
+| 실험 | 커버리지 | F1 | Precision | Recall |
+|------|---------|-----|-----------|--------|
+| BM25 top-1 (no-debate) | 90.9% | 0.242 | 0.254 | 0.231 |
+| ES Rerank | 90.4% | 0.344 | 0.362 | 0.328 |
+| ES Dense | 90.7% | 0.344 | 0.362 | 0.328 |
+| ES Ensemble | 90.7% | 0.378 | 0.398 | 0.360 |
+| Agent qwen2.5:14b step=2 | 99.5% | 0.332 | 0.332 | 0.331 |
+| **Ollama Debate** | **61.1%** | **0.489** | **0.645** | **0.394** |
+
+> **핵심 인사이트**: Debate(P=0.645)가 가장 정확하지만 Recall(0.394)이 병목.
+> Agent는 커버리지↑에도 불구하고 오히려 Precision이 크게 하락 → 전략 폐기.
+> **다음 방향**: Debate Recall 향상 (BM25 폴백 + NIL threshold 완화).
 
 ---
 

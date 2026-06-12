@@ -9,7 +9,7 @@
 - SemTab 2025 MammoTab 트랙 공식 문서 정독, CEA 태스크 정의 파악
 - 리더보드 상위 팀 확인 (ADFr F1=0.758 / RAGDify F1=0.603 / ditlab F1=0.549) — ADFr 논문 미공개 확인
 - 공개된 논문 2편 (RAGDify, Iterative Refinement) 확보 및 접근법 비교 정리
-- MammoTab 데이터셋 870개 테이블 샘플 다운로드 및 구조 파악
+- MammoTab 데이터셋 826개 테이블 샘플 다운로드 및 구조 파악
 
 ### 2주차 — 선행 연구 심화 분석
 
@@ -73,7 +73,7 @@
 
 ### 10주차 — Agent 실험 결과 분석 ✅
 
-- ✅ Agent 공식 F1 수신 (F1=0.412, Ensemble 0.378 대비 +0.034)
+- ✅ Agent 공식 F1 수신 (F1=0.332, Ensemble 0.378 대비 -0.046 하락 / Debate F1=0.489가 전체 최고)
 - ✅ 오류 케이스 200개 샘플링 분석 — 검색 실패 > Disambiguation > Agent 오판 순
 - ✅ 도메인별 Recall@10 측정 — 희귀 인물·소규모 지명 도메인 가장 취약
 - ✅ 단계별 ablation 표 완성 (BM25→Reranker→Dense→Ensemble→Agent)
@@ -83,11 +83,11 @@
 - ✅ Agent 프롬프트 개선 (테이블 헤더·인접 셀 명시 주입) + 소규모 재실험
 - ✅ NIL 임계값 완화 실험 — Recall 소폭 향상, F1 순변화 미미
 - ✅ 목표 미달 원인 확정: Dense 전체 미적용 > 로컬 LLM 한계 > KG 커버리지 부족
-- ✅ Ensemble + Agent Voting 실험 — 고신뢰 전략 F1 향상 없음, Agent 단독이 최선
+- ✅ Ensemble + Agent Voting 실험 — 고신뢰 전략 F1 향상 없음 / 전체 최고는 Debate F1=0.489 (Ollama 기반)
 
 ### 12주차 — 최종 제출 전략 확정 ✅
 
-- ✅ Agent 결과(F1=0.412)를 최종 제출본으로 확정
+- ✅ Agent 결과(F1=0.332) 제출 완료 — 전체 최고는 Debate(F1=0.489)
 - ✅ 제출 파일 전수 검증: 형식·QID·중복 모두 이상 없음 (84,512개 어노테이션)
 - ✅ 처리 성능 지표 정리: Ensemble 104분 vs Agent 40시간 비교
 - ✅ 실험 추적 9개 최종 완성 (`output/experiments.csv`)
@@ -96,7 +96,7 @@
 
 - ✅ CEA 난제별 현재 시스템 대응 수준 평가 완료
 - ✅ 목표 미달 원인 및 향후 개선 방향 3가지 우선순위 도출
-- ✅ 최종 성과 정리: Agent F1=0.412 (목표 0.758 대비 0.346 격차)
+- ✅ 최종 성과 정리: Agent F1=0.332 / 전체 최고 Debate F1=0.489 (목표 0.758 대비 0.269 격차)
 
 ### 14주차 — 코드 정리 & 문서화 ✅
 
