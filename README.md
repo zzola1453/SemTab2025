@@ -64,8 +64,8 @@ CSV 테이블
     - search_entities / search_fuzzy / get_entity_details / submit_answer
     - LLM이 능동적으로 검색·재검색·세부조회 반복
     ↓
-4. [파이프라인 모드] Debate & Verification (debate.py / verification.py)
-   - Collective Inference (--collective 플래그)
+4. [파이프라인 모드] Debate (debate.py)
+   - 로컬 Ollama LLM이 BM25 top-5 후보 중 최선을 테이블 컨텍스트 기반으로 선택
     ↓
 table_id, row_id, col_id, entity_id
 ```
@@ -133,7 +133,7 @@ python3 scripts/run_baseline.py --backend elasticsearch --tables 826 --no-debate
 # ReAct Agent (로컬 Ollama 필요, F1=0.332)
 python3 scripts/run_baseline.py --backend elasticsearch --tables 826 --agent --agent-model qwen2.5:14b --agent-max-steps 2
 
-# LLM Debate 포함 (Anthropic API 키 필요)
+# LLM Debate 포함 (로컬 Ollama 필요, F1=0.489 — 전체 최고)
 python3 scripts/run_baseline.py --backend elasticsearch --tables 826
 ```
 
@@ -152,7 +152,7 @@ python3 scripts/index_wikidata.py --dump /path/to/latest-all.nt.bz2
 | 검색 엔진 | Elasticsearch 8.13 (BM25) |
 | 로컬 재순위 | sentence-transformers cross-encoder / `intfloat/e5-large-v2` |
 | ReAct Agent | Ollama (`qwen2.5:14b`, `llama3.1:8b` 등) |
-| LLM (선택) | Claude Haiku (Anthropic API) |
+| LLM (Debate) | Ollama qwen2.5:14b (로컬, 최고 F1=0.489) |
 | 비동기 처리 | asyncio + aiohttp |
 | 인프라 | Docker + Docker Compose |
 

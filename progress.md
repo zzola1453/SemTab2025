@@ -78,9 +78,8 @@
   - ✅ Google Form 제출 완료 → **F1: 0.344, P: 0.362, R: 0.328** (공식 결과 2026-06-06)
 - ✅ 전체 826테이블 Ensemble 실행 완료 (2026-06-01)
   - `output/experiments/es_ensemble_826t.csv`, 76,974개 어노테이션, 90.7%, 104분
-  - ✅ Google Form 제출 완료 → **F1: 0.378, P: 0.398, R: 0.360** (공식 결과 2026-06-06, 현재 최고)
+  - ✅ Google Form 제출 완료 → **F1: 0.378, P: 0.398, R: 0.360** (공식 결과 2026-06-06)
 - 비교: Cross-encoder vs Dense 51.3% 다른 예측 → 앙상블 효과 기대
-- ⬜ RRF(Reciprocal Rank Fusion) 앙상블로 교체 (나중에)
 
 ### 8주차 — Agentic LLM 전략 전환 & 실험
 - ✅ ReAct-style Agentic CEA 구현 완료 (`src/cea/agent.py`, `src/cea/tools.py`)
@@ -111,9 +110,9 @@
 
 ### 9주차 — 중간 성능 평가
 - ✅ 전체 826개 테이블 1차 추론 완료 (BM25 top-1)
-- ✅ Google Form 제출 완료 (2026-05-18) — F1 미수신 (BM25 단독 결과 별도 평가 예정)
+- ✅ Google Form 제출 완료 (2026-05-18) — 공식 F1: **0.242**, P: 0.254, R: 0.231 (2026-06-12)
 - ✅ 공식 F1 수신 (2026-06-06): Rerank=0.344 / Dense=0.344 / Ensemble=0.378
-- ✅ 현재 최고: **Ensemble F1=0.378** — 목표(0.758) 대비 약 0.38 격차
+- ✅ 전체 최종 결과: **Debate F1=0.489**(최고) / Ensemble=0.378 / Agent=0.332 — 목표(0.758) 대비 0.269 격차
 - ✅ F1 기반 오류 분석 → Agentic LLM 전략으로 전환 (`proposal.md`)
 
 ---
