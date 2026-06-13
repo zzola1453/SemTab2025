@@ -1,6 +1,6 @@
 # Progress Tracker — SemTab CEA 시스템
 
-마지막 업데이트: 2026-06-11
+마지막 업데이트: 2026-06-13
 
 ---
 
@@ -175,12 +175,12 @@
   - 총 84,907개 타겟 셀 → 77,140개 어노테이션 제출 (90.9% 커버리지)
   - 제출 파일: `output/baseline_no_debate_full.csv` (형식 검증 완료)
 
-**다음 단계**
+**다음 단계 (모두 완료)**
 
-1. `output/experiments/es_bm25_826t_full.csv` → Google Form 제출 → 공식 F1 확인
-2. F1 확인 후 Reranker 전체 826테이블 실행 → 비교
-3. Dense Hybrid 검색 구현 (로컬 임베딩, API 키 불필요)
-4. Collective Inference 실험
+1. ✅ Google Form 제출 → 공식 F1: 0.242 (2026-06-12)
+2. ✅ Reranker 전체 826테이블 실행 → F1: 0.344 / Ensemble: 0.378
+3. ✅ Dense Hybrid 검색 구현 (E5 기반, 로컬 실행)
+4. ✅ Collective Inference 구현 완료 (공식 제출은 미시행)
 
 ---
 
@@ -213,8 +213,8 @@
   - 샘플 품질 검증 4/4 정확 (Cameroon=Q1009, Eat My Dust!=Q3576864 등)
   - 출력 형식 정상: `filename,row_id,col_id,entity_id`
 
-**다음 단계**
+**다음 단계 (모두 완료)**
 
-1. Docker Desktop WSL2 통합 활성화 → ES 컨테이너 시작
-2. KG 다운로드 완료 후 `python3 scripts/index_wikidata.py --dump <경로>` 실행
-3. ES 인덱싱 완료 후 `--backend elasticsearch`로 전환해 성능 측정
+1. ✅ Docker Desktop WSL2 통합 활성화 → ES 컨테이너 시작
+2. ✅ KG 전체 인덱싱 완료 (78,647,123개 엔티티, 2026-05-17)
+3. ✅ ES 백엔드로 전환 → BM25 베이스라인 F1: 0.242
