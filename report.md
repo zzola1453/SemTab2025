@@ -121,7 +121,7 @@ Collective Inference를 구현하면서 CEA가 단순한 1:1 매핑이 아니라
 
 ### 실습 내용
 - `intfloat/e5-large-v2` 임베딩 모델을 로컬에 세팅하고 Wikidata 엔티티의 레이블+설명을 결합한 텍스트를 배치 단위로 벡터화하는 인코딩 파이프라인을 구현하였다. 소규모 샘플(10만 엔티티)에 대해 ES dense 벡터 필드 적재를 테스트하고 BM25와 Dense 검색이 각각 어떤 케이스에서 더 나은 후보를 반환하는지 비교 사례를 수집하였다.
-- BM25와 Dense 검색 결과를 Reciprocal Rank Fusion(RRF)으로 통합하는 `HybridRetriever` 모듈을 구현하였다. RRF 가중치를 조정하며 Recall@10 변화를 측정하고, BM25가 alias·오탈자에 약한 케이스를 Dense 검색이 보완하는 구체적 사례(예: "Eat My Dust" → "Eat My Dust!" 정확 매핑)를 확인하였다.
+- BM25 top-10 후보에 Dense(E5) 점수를 가중 혼합(BM25 30% + Dense 70%)하는 `BiEncoderReranker` 모듈을 구현하였다. 가중치를 조정하며 Recall@10 변화를 측정하고, BM25가 alias·오탈자에 약한 케이스를 Dense 검색이 보완하는 구체적 사례(예: "Eat My Dust" → "Eat My Dust!" 정확 매핑)를 확인하였다.
 - Fuzzy match(Levenshtein 거리 ≥75%) 폴백 로직을 구현하여 Exact/BM25/Dense 세 단계 모두에서 후보를 찾지 못한 경우의 커버리지 손실을 최소화하는 검색 fallback 체인을 완성하였다. Fuzzy match 단독 Precision이 낮은 것을 확인하고 Fuzzy 후보도 반드시 Debate 단계를 거치도록 강제하였다.
 - 하이브리드 검색과 BM25 단독의 Recall@10 및 추정 F1을 동일 샘플로 비교하였다. 하이브리드 검색이 특히 alias·오탈자 케이스에서 유리함을 정량화하고, Dense 인덱스 전체 확장 시 예상 처리 시간과 인덱스 크기를 추정하여 전체 적재 계획을 수립하였다.
 

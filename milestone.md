@@ -34,23 +34,23 @@
 
 ## 🟡 Phase 2 — 파이프라인 구현 (5~9주차)
 
-### 5주차 — 검색 고도화 (Fuzzy + LLM 쿼리 재작성)
+### 5주차 — 검색 고도화 (Fuzzy + LLM 쿼리 재작성) ✅
 
-- Fuzzy match(≥75%) 폴백 검색 구현
-- LLM 쿼리 재작성 모듈 구현 (alias·약어 처리, API 키 없어 비활성화 — 코드만 존재)
-- 검색 모듈 통합 및 Recall 변화 측정
+- ✅ Fuzzy match(≥75%) 폴백 검색 구현
+- ✅ LLM 쿼리 재작성 모듈 구현 (alias·약어 처리, API 키 없어 비활성화 — 코드만 존재)
+- ✅ Cross-encoder Reranker 구현 및 826t 실행 완료 (F1=0.344, 2026-06-01)
 
-### 6주차 — Debate & Verification 프롬프트 구현
+### 6주차 — Debate & Verification 프롬프트 구현 ✅
 
-- 후보 순위 결정(Debate) 프롬프트 설계 및 테스트
-- 검증(Verification) 프롬프트 구현, NIL 판단 로직 포함
-- 50개 테이블 end-to-end 파이프라인 실험
+- ✅ 후보 순위 결정(Debate) 프롬프트 설계 및 테스트
+- ✅ 검증(Verification) 프롬프트 구현, NIL 판단 로직 포함
+- ✅ Collective Inference 구현, 20개 테이블 end-to-end 파이프라인 실험
 
-### 7주차 — Dense Retrieval 하이브리드 검색
+### 7주차 — Dense Retrieval 재순위 검색 ✅
 
-- E5 또는 BGE 임베딩 모델 세팅
-- BM25 + Dense 하이브리드 검색 구현
-- 하이브리드 vs BM25 단독 성능 비교 (Recall 변화 분석)
+- ✅ E5 임베딩 모델(`intfloat/e5-large-v2`) 세팅 및 Dense Reranker 구현
+- ✅ Ensemble Reranker 구현 (Cross-encoder 60% + Dense 40% 가중 혼합)
+- ✅ Dense 826t 실행 (F1=0.344) / Ensemble 826t 실행 (F1=0.378) 완료 (2026-06-01)
 
 ### 8주차 — Agentic LLM 전략 전환 & 전체 실행 ✅
 
