@@ -270,7 +270,7 @@ score_final = 0.6 × score_cross_norm + 0.4 × score_dense_norm
 
 **커버리지 분석**: 79.5%는 ES 후보 자체가 없는 175개 셀 때문 (BM25·row_hint·fuzzy 3단계 모두 실패). 모델 교체로는 해결 불가.
 
-**qwen step5 vs step2**: QID 28.6% 차이, 속도 1.85x — step2 채택 (826t 실행 ~49시간)
+**qwen step5 vs step2**: QID 28.6% 차이, 속도 1.85x — step2 채택 (826t 실행 ~40시간)
 
 ---
 

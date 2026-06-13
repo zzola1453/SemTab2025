@@ -41,7 +41,7 @@
   │  ├─ Cross-encoder Reranker
   │  ├─ Dense(E5) Reranker
   │  ├─ Ensemble (Cross + Dense)
-  │  └─ ReAct Agent (현재 실행 중)
+  │  └─ ReAct Agent (완료, F1=0.332)
   │
   ▼
 출력: table_id, row_id, col_id, QID
@@ -186,7 +186,7 @@ score_final = 0.6 × score_cross_encoder + 0.4 × score_dense
 
 ---
 
-### 기법 7: ReAct Agentic CEA (현재 실행 중)
+### 기법 7: ReAct Agentic CEA
 
 **문제**: 사전 정의된 파이프라인은 검색 실패 시 대안 전략을 자율적으로 선택하지 못함.  
 예: "Eat My Dust!" 검색 실패 시 관사를 제거하거나 다른 쿼리를 시도하는 로직이 없음.
