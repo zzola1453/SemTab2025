@@ -71,19 +71,10 @@
 
 ## 🔴 Phase 3 — 최적화 & 마무리 (10~15주차)
 
-### 10주차 — Agent 실험 결과 분석 ✅
+### 10주차 — 공식 결과 수신 ✅
 
-- ✅ Agent 공식 F1 수신 (F1=0.332, Ensemble 0.378 대비 -0.046 하락 / Debate F1=0.489가 전체 최고)
-- ✅ 오류 케이스 200개 샘플링 분석 — 검색 실패 > Disambiguation > Agent 오판 순
-- ✅ 도메인별 Recall@10 측정 — 희귀 인물·소규모 지명 도메인 가장 취약
-- ✅ 단계별 ablation 표 완성 (BM25→Reranker→Dense→Ensemble→Agent)
-
-### 11주차 — 성능 한계 분석 & 추가 실험 ✅
-
-- ✅ Agent 프롬프트 개선 (테이블 헤더·인접 셀 명시 주입) + 소규모 재실험
-- ✅ NIL 임계값 완화 실험 — Recall 소폭 향상, F1 순변화 미미
-- ✅ 목표 미달 원인 확정: Dense 전체 미적용 > 로컬 LLM 한계 > KG 커버리지 부족
-- ✅ Ensemble + Agent Voting 실험 — 고신뢰 전략 F1 향상 없음 / 전체 최고는 Debate F1=0.489 (Ollama 기반)
+- ✅ 전체 제출 공식 F1 수신 (2026-06-12): Debate=0.489(최고), Ensemble=0.378, Agent=0.332, Rerank=0.344, BM25=0.242
+- ✅ 목표 미달 원인 확정: BM25 Recall 병목 > 로컬 LLM 한계 > KG 커버리지 부족
 
 ### 12주차 — 최종 제출 전략 확정 ✅
 

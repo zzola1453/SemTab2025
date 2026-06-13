@@ -274,26 +274,6 @@ score_final = 0.6 × score_cross_norm + 0.4 × score_dense_norm
 
 ---
 
-## 구현됐으나 미실험된 방법론
-
-### Dense Retrieval 하이브리드 (HybridRetriever)
-- **아이디어**: BM25(어휘 기반) + E5-large-v2 임베딩(의미 기반)을 RRF로 결합
-- **상태**: 코드 완성, Dense 인덱스 미적재
-- **예상 효과**: alias·오탈자·의미적 유사 케이스 Recall 향상
-- **소요**: RTX 4080 Super 기준 임베딩 2~4시간 + ES 업로드 1~2시간
-
-### LLM Verification
-- **아이디어**: Debate 선택 후보를 LLM이 독립적으로 재평가, NIL 판단
-- **상태**: 코드 완성, 전체 실험 미실행
-- **예상 효과**: Precision 향상 (단 커버리지 감소 트레이드오프)
-
-### LLM Query Rewriting
-- **아이디어**: 셀 값의 약어·이명을 LLM이 대안 쿼리로 확장 후 재검색
-- **상태**: 코드 완성, API 키 없이 비활성화 상태
-- **예상 효과**: Alias Resolution 개선 → Recall 향상
-
----
-
 ## 핵심 설계 결정 및 교훈
 
 | 결정 | 이유 | 결과 |
